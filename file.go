@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+    "regexp"
 	// "reflect"
 )
 
@@ -22,20 +23,35 @@ func displayTask() {
 }
 
 func checkFileExists() *os.File {
-	stat, err := os.OpenFile("file/task.csv", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
+    _, err := os.Stat("./file") 
+    if os.IsNotExist(err){
+    if err != nil{
+        err := os.Mkdir("./file", 0750)
+        if err != nil {
+            fmt.Println("Error creating directory:", err)
+            return nil
+        }
+    }
+}
+	stat, _ := os.OpenFile("file/task.csv", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
+        fmt.Println("Error opening the file", err)
 		fmt.Println("File does not exist, creating file ...", err)
-		_, err := os.Create("file/task.csv")
+
+
+		stat, err := os.Create("file/task.csv")
 		if err != nil {
-			panic(err)
+        fmt.Println(err)
+		panic(err)
 		}
+        return stat
 	}
 	return stat
 }
 
 func writeToCsvFile(csvFile *os.File) {
 	var taskList []Task = []Task{
-		{Id: 3, Description: "Task w", Status: false, Date: "2021-01-11"},
+		{Id: 1, Description: "Task 1", Status: false, Date: "2021-01-11"},
 	}
 	// fmt.Println(taskList)
 
@@ -87,7 +103,18 @@ func readSingleTask(csvFile *os.File, id int) []string {
 	return nil
 }
 
-func updtaeTask(csv *os.File, id int) {
-	records := readSingleTask(csv, id)
-	createFormat(records)
+func updateDesc(file *os.File, index int){
+}
+
+func updateDate(file *os.File, index int){
+
+}
+
+func update(file *os.File, index int, slug string, data ...string) {
+    //func update(){
+    record := readSingleTask(file, index)
+    r,_ := regexp.MatchString(`[0-9]{4}(-|\/)(0[0-9]|1[0-2])(-|\/)([0-2][0-9]|3[0-2])`, "2024-08-12")
+    fmt.Println(r)
+
+
 }

@@ -1,14 +1,21 @@
 package main
 
 // import "fmt"
+import (
+	//"fmt"
+	//"time"
+)
 
 
 func main(){
-	 checkFileExists()
+    update()
+    //file := checkFileExists()
+    //updateTask(file, 1, "Task 25")
 	// checkFileExists()
-	// writeToCsvFile(csvFile) 
+	//writeToCsvFile(file) 
 	// readFromCsvFile(csvFile)
-	displayTask()
+	//displayTask()
 	// updtaeTask(csv, 3)
 	// readSingleTask(csvFile, 3)
+    //fmt.Println(time.Now())
 }
